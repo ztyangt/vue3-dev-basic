@@ -1,0 +1,118 @@
+:root {
+  /* 动画过渡 */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 尺寸与圆角 */
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+
+  --white: #ffffff;
+}
+
+:root {
+  /* --- 背景色 --- */
+  --bg-base: #f9fafc;
+  /* 页面底层大背景 */
+  --bg-surface: #ffffff;
+  /* 卡片、区块背景 */
+  --bg-surface-hover: #f1f5f9;
+  /* 悬浮背景 */
+
+  /* --- 字体色  --- */
+  --text-heading: #0f172a;
+  /* 标题色 (h1~h6)：最深的灰蓝色，极其锐利 */
+  --text-body: #334155;
+  /* 正文色 (p, span)：对比度适中，长时间阅读不累眼 */
+  --text-secondary: #64748b;
+  /* 辅助色：用于时间戳、副标题、说明文字 */
+  --text-muted: #94a3b8;
+  /* 弱化色：用于占位符、禁用状态 */
+  --text-inverse: #ffffff;
+  /* 反色文本：用于深色按钮上的文字 */
+
+  /* --- 主题色 --- */
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-active: #3730a3;
+  --primary-light: #e0e7ff;
+
+  /* --- 语义色 --- */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+
+  /* --- 边框与分割线 --- */
+  --border-light: #f1f5f9;
+  --border-base: #e2e8f0;
+  --border-hover: #cbd5e1;
+
+  /* --- 阴影 --- */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+html.dark {
+  /* --- 背景色  --- */
+  --bg-base: #0f1114;
+  /* 页面底层：柔和的深灰蓝 (类似 React 新版文档) */
+  --bg-surface: #2b303b;
+  /* 卡片区块：稍微提亮，拉开层级 */
+  --bg-surface-hover: #373e4b;
+  /* 悬浮背景 */
+
+  /* --- 字体色 --- */
+  --text-heading: #f8fafc;
+  /* 标题色：高亮白，确保标题醒目 */
+  --text-body: #cbd5e1;
+  /* 正文色：浅灰蓝，对比度刚好，避免纯白光晕刺眼 */
+  --text-secondary: #94a3b8;
+  /* 辅助色 */
+  --text-muted: #64748b;
+  /* 弱化色 */
+  --text-inverse: #0f172a;
+  /* 反色文本 */
+
+  /* --- 主题色 (暗色下微调以保证可见度) --- */
+  --primary: #6366f1;
+  --primary-hover: #818cf8;
+  --primary-active: #4f46e5;
+  --primary-light: #312e81;
+
+  /* --- 语义色 --- */
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --info: #60a5fa;
+
+  /* --- 边框与分割线 --- */
+  --border-light: #2b303b;
+  --border-base: #3e4656;
+  /* 边框色调整，与柔和背景匹配 */
+  --border-hover: #525c6e;
+
+  /* --- 阴影 --- */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 2px 4px -2px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+}
+
+.title-color {
+  color: var(--text-heading);
+}
+
+.text-color {
+  color: var(--text-body);
+}
+
+.secondary-color {
+  color: var(--text-secondary);
+}
+
+.muted-color {
+  color: var(--text-muted);
+}

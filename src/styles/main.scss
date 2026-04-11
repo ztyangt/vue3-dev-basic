@@ -1,0 +1,58 @@
+@use './base.scss' as *;
+@use './theme.scss' as *;
+@use './animation.scss' as *;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* 隐藏所有元素的滚动条但保留滚动功能 */
+// * {
+//   scrollbar-width: none; /* Firefox */
+//   -ms-overflow-style: none; /* IE 和 Edge */
+// }
+
+// *::-webkit-scrollbar {
+//   display: none; /* Chrome, Safari 和 Opera */
+// }
+
+*:focus-visible {
+  outline: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  width: 100vw;
+  font-size: 16px;
+  color: var(--text-body);
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+  background-color: var(--bg-base);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+.bg-grid-layer {
+  position: fixed;
+  inset: 0;
+  background-size: 24px 24px;
+  background-image:
+    linear-gradient(to right, var(--border-base) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-base) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  transition: background-image 0.3s ease;
+}
