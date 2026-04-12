@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { useTheme } from '@/hooks/use-theme'
+import { initStore } from '@/stores'
+import { useEmitter } from '@/emitter'
 
-const { isDark } = useTheme()
+initStore()
+useTheme()
+useEmitter()
 </script>
 
 <template>

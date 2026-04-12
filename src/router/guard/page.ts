@@ -1,6 +1,7 @@
 import type { Router } from 'vue-router'
 import { RouterEmitter } from '@/emitter'
 import { useConfigStore } from '@/stores/config'
+import { useUserStore } from '@/stores/user'
 import type { ConfigType } from '@/types/config'
 import type { RouteLocationNormalizedGeneric } from 'vue-router'
 
@@ -22,6 +23,13 @@ const setPageTitle = (title: string, to: RouteLocationNormalizedGeneric) => {
 
 export default async function setupPageGuard(router: Router) {
   router.beforeEach(async (to) => {
+    const userStore = useUserStore()
+    userStore.init()
+
+    //   发布路由跳转事件
+    RouterEmitter.emit('ROUTE:CHANGE', to)
+
+    // 设置页面标题
     const store = useConfigStore()
     if (!store.hasConfig) {
       store.getConfig().then(() => {
