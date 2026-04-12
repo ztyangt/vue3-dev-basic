@@ -8,9 +8,11 @@ import { plugins } from './plugins'
 import { directives } from './directives'
 
 import 'virtual:svg-icons-register'
-import 'element-plus/dist/index.css'
-import 'element-plus/theme-chalk/base.css'
 import 'element-plus/theme-chalk/src/dark/css-vars.scss'
+import 'element-plus/theme-chalk/src/message.scss'
+import 'element-plus/theme-chalk/src/message-box.scss'
+import 'element-plus/theme-chalk/src/overlay.scss' // the modal class for message box
+
 import { ElCollapseTransition } from 'element-plus'
 
 const app = createApp(App)

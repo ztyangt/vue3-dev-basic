@@ -128,7 +128,8 @@ const handleLogin = async () => {
 
 /* 高级玻璃卡片 */
 .glass-card {
-  background: color-mix(in srgb, var(--bg-surface) 30%, transparent);
+  // background: color-mix(in srgb, var(--bg-surface) 30%, transparent);
+  background: var(--bg-surface);
   backdrop-filter: blur(20px);
   border: 1px solid color-mix(in srgb, var(--border-base) 30%, transparent);
   border-radius: 5px;

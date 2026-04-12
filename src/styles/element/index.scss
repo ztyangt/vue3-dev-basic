@@ -1,7 +1,6 @@
 @use './common.scss' as *;
 @use './dark.scss' as *;
-
-@use './dark.scss' as *;
+@use './var.scss' as *;
 
 .el-input__wrapper {
   box-shadow: none;
