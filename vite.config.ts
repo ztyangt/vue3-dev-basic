@@ -24,13 +24,7 @@ export default defineConfig(({ mode }) => {
 
       proxy: {
         '/api': {
-          target: env.APP_BASE_API || 'http://127.0.0.1:9527',
-          changeOrigin: true,
-          secure: false,
-          rewrite: (path) => path.replace(/^\//, ''),
-        },
-        '/sources': {
-          target: env.APP_BASE_API || 'http://127.0.0.1:9527',
+          target: env.APP_BASE_API,
           changeOrigin: true,
           secure: false,
           rewrite: (path) => path.replace(/^\//, ''),
