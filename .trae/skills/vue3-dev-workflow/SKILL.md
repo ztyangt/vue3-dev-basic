@@ -74,6 +74,9 @@ src/
 - **数据展示**: `el-table`, `el-pagination`, `el-card`, `el-descriptions`
 - **反馈**: `el-message`, `el-notification`, `el-dialog`, `el-loading`
 - **导航**: `el-menu`, `el-breadcrumb`, `el-tabs`
+- **标签**: `el-tag`
+- **按钮**: `el-button`
+- **滚动**: `el-scrollbar`，用于滚动内容，滚动场景尽量使用这个组件
 
 ### 3. 样式开发规范
 
@@ -274,6 +277,8 @@ export function getData(params: any) {
 
 #### 4.5 使用 Hooks
 
+尽量复用`src/hooks`下的组合式逻辑，避免重复代码。
+
 创建可复用逻辑 (`src/hooks/use-your-hook/index.ts`):
 
 ```ts
@@ -395,6 +400,8 @@ const { isDark, toggleTheme } = useTheme()
 - 在组件中重复定义全局样式类
 - 使用内联样式（除非动态值）
 - 忽略 TypeScript 类型检查
+- 布局不要使用 element-plus 提供的 el-row 等组件，而应该使用 flex弹性布局（尽量复用已有的 flex 布局css类） 或 grid 布局
+- el-card 组件不要直接使用，而应该使用 flex 布局 + padding 来实现卡片效果
 
 ✅ **应该**:
 
