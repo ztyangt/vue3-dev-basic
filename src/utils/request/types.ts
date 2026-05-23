@@ -10,6 +10,7 @@ export interface ProgressEvent {
 export interface RequestOptions {
   auth?: boolean
   headers?: Record<string, any>
+  responseType?: HttpResponseType
   handleUpload?: (progressEvent: ProgressEvent) => void
   handleDownload?: (progressEvent: ProgressEvent) => void
 }

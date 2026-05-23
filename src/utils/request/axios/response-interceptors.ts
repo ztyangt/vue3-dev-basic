@@ -14,18 +14,18 @@ export const resInterceptors = (axiosInstance: AxiosInstance) => {
           ApiEmitter.emit('API:BAD-REQUEST', msg) // 错误请求
           break
         case 401:
-          ApiEmitter.emit('API:LOGIN-EXPIRED') // 登录过期
+          ApiEmitter.emit('API:LOGIN-EXPIRED', msg) // 登录过期
           break
         case 402:
-          ApiEmitter.emit('API:NOT-LOGIN') // 未登录
+          ApiEmitter.emit('API:NOT-LOGIN', msg) // 未登录
           break
         case 403:
-          ApiEmitter.emit('API:UNAUTHORIZED') // 未授权
+          ApiEmitter.emit('API:UNAUTHORIZED', msg) // 未授权
         case 404:
           ApiEmitter.emit('API:NOT-FOUND', msg) // 未找到
           break
         case 500:
-          ApiEmitter.emit('API:INTERNAL-SERVER-ERROR') // 服务器错误
+          ApiEmitter.emit('API:INTERNAL-SERVER-ERROR', msg) // 服务器错误
           break
         case 501:
           ApiEmitter.emit('API:NOT-INSTALL') // 未安装
@@ -39,8 +39,8 @@ export const resInterceptors = (axiosInstance: AxiosInstance) => {
       ApiEmitter.emit('API:RESPONSE-ERROR', error.response?.data?.msg || error.message)
       return {
         code: -1,
-        msg: error.response?.data?.msg || error.message
+        msg: error.response?.data?.msg || error.message,
       }
-    }
+    },
   )
 }
