@@ -54,7 +54,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       vueJsx(),
-      // vueDevTools(),
+      vueDevTools(),
       AutoImport({
         imports: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
         dts: 'unplugin/auto-imports.d.ts',
@@ -73,12 +73,12 @@ export default defineConfig(({ mode }) => {
         symbolId: 'icon-[dir]-[name]',
       }),
 
-      codeInspectorPlugin({
-        bundler: 'vite',
-        editor: 'trae',
-        showSwitch: true,
-        hideConsole: true,
-      }),
+      // codeInspectorPlugin({
+      //   bundler: 'vite',
+      //   editor: 'trae',
+      //   showSwitch: true,
+      //   hideConsole: true,
+      // }),
     ],
 
     worker: {
