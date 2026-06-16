@@ -3,8 +3,6 @@
 @use './animation.scss' as *;
 
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -44,6 +42,11 @@ html {
     Helvetica,
     Arial,
     sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
 .bg-grid-layer {
