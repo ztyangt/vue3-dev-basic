@@ -1,0 +1,144 @@
+/*
+ * Element Plus 选择器覆盖（全局加载一次）
+ * 说明：这些规则只依赖 CSS 变量（--cs-* / --text-* / --border-* 等），
+ *       无需在每个 EP 组件 chunk 里重复注入，统一在此加载即可。
+ *       SCSS 主题变量前向（common.scss / dark.scss）仍随 additionalData 注入每个 chunk，
+ *       因为 EP 组件 .scss 编译期需要它们定义 $colors 等映射。
+ */
+
+ .el-input__count, .el-input__count-inner {
+  background-color: transparent !important;
+}
+
+.el-input__wrapper,
+.el-textarea__inner,
+.el-select__wrapper {
+  background-color: var(--cs-input-bg-color);
+  box-shadow: none;
+  &:hover {
+    background-color: var(--cs-input-hover-bg-color);
+    box-shadow: none;
+  }
+  &.is-focus {
+    box-shadow: 0 0 0 1px var(--el-input-focus-border-color) inset;
+    background-color: var(--cs-input-bg-color);
+  }
+}
+
+.el-select__wrapper {
+  &.is-hovering {
+    box-shadow: none !important;
+  }
+  &.is-focused {
+    box-shadow: none !important;
+  }
+}
+
+.el-popper {
+  border: none !important;
+  // background-color: var(--cs-popper-bg-color) !important;
+
+  .el-select__popper {
+    background-color: var(--cs-popper-bg-color) !important;
+    .el-popper__arrow::before {
+      background-color: var(--cs-popper-bg-color) !important;
+      border-color: var(--cs-popper-bg-color) !important;
+    }
+  }
+
+  .el-select-dropdown__item.is-hovering {
+    background-color: var(--cs-select-hover-bg-color) !important;
+  }
+  .el-popper__arrow::before {
+      border-color: var(--cs-popper-bg-color) !important;
+  }
+ 
+}
+
+.el-message-box {
+  background-color: var(--cs-popper-bg-color) !important;
+}
+
+.el-table {
+  --el-table-bg-color: var(--cs-table-bg-color) !important;
+  --el-table-header-bg-color: var(--cs-table-header-bg-color) !important;
+  --el-table-tr-bg-color: transparent !important;
+  --el-table-border: var(--border-base) !important;
+  --el-table-border-color: var(--border-base) !important;
+  --el-table-header-text-color: var(--text-heading) !important;
+  --el-table-row-hover-bg-color: var(--cs-table-row-hover-bg-color) !important;
+  --el-table-current-row-bg-color: var(--cs-table-row-hover-bg-color) !important;
+  --el-table-text-color: var(--text-body) !important;
+
+  .el-table__row td {
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  &.el-table--striped {
+    .el-table__body tr.el-table__row--striped td.el-table__cell {
+      background-color: var(--cs-table-striped-bg-color) !important;
+    }
+  }
+
+  .el-table-fixed-column--right {
+    backdrop-filter: blur(50px);
+    // background-color: var(--cs-table-header-bg-color)!important;
+  }
+
+  // 非带边框表格才隐藏 ::before 分隔线，带边框表格保留 Element Plus 默认样式
+  &:not(.el-table--border) .el-table__inner-wrapper::before {
+    display: none !important;
+  }
+}
+
+.el-card,
+.el-popper,
+.el-message-box,
+.el-tag {
+  border: none;
+  border-radius: var(--radius-sm) !important;
+}
+
+.el-button {
+  &:not(.is-plain) {
+    border: none !important;
+  }
+}
+
+
+.el-dialog {
+  padding: 0 !important;
+  background-color: var(--cs-popper-bg-color) !important;
+
+  .el-dialog__header {
+    padding: 15px 20px !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-base);
+
+    .el-dialog__headerbtn {
+      position: relative !important;
+      height: 16px !important;
+      width: 16px !important;
+    }
+  }
+
+  .el-dialog__footer {
+    padding: 15px 20px !important;
+    border-top: 1px solid var(--border-base);
+  }
+
+  .el-dialog__body {
+    padding: 20px !important;
+  }
+}
+
+.el-input-number__decrease, .el-input-number__increase {
+  border: none;
+  background-color: var(--cs-popper-bg-color);
+}
+
+.el-checkbox {
+  --el-checkbox-disabled-input-fill: var(--cs-checkbox-disabled-input-fill);
+}

@@ -1,0 +1,100 @@
+/* =========================================================
+ *  全局 CSS 自定义属性（Design Tokens）
+ *  此处仅定义「非色系」的基础设计令牌（动画、圆角、阴影、布局色）。
+ *  主题色（primary / info 及其 EP 色环）统一在 theme.scss 中按 data-scheme 分层管理。
+ * ========================================================= */
+
+/* ===================== 基础设计令牌 ===================== */
+:root {
+  /* ---------- 动画过渡 ---------- */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ---------- 圆角 ---------- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-2xl: 12px;
+
+  /* ---------- 通用色 ---------- */
+  --white: #ffffff;
+
+  /* EP 颜色快捷别名（全局可用，亮暗自动跟随） */
+  --info: var(--el-color-info);
+  --success: var(--el-color-success);
+  --warning: var(--el-color-warning);
+  --danger: var(--el-color-danger);
+  --error: var(--el-color-error);
+}
+
+/* ===================== 亮色布局色 ===================== */
+:root {
+  /* ---------- 背景色 ---------- */
+  --bg-base: #f7f8fb;           /* 最外层背景（页面底色） */
+  --bg-surface: #ffffff;         /* 表层背景（卡片、面板、表格） */
+  --bg-surface-hover: #f1f5f9;   /* 表层悬浮态 */
+
+  /* ---------- 文字色 ---------- */
+  --text-heading: #212122;    /* 标题文字 */
+  --text-body: #52545a;       /* 正文 */
+  --text-secondary: #64748b;  /* 次要文字 */
+  --text-muted: #94a3b8;      /* 弱化文字 */
+  --text-inverse: #ffffff;    /* 反色文字 */
+
+  /* ---------- 边框与分割线 ---------- */
+  --border-light: #f1f5f9; /* 最浅边框 */
+  --border-base: #e2e8f0;  /* 标准边框 */
+  --border-hover: #cbd5e1; /* 边框悬浮态 */
+
+  /* ---------- 阴影 ---------- */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+  --cs-input-bg-color: #f2f3f5;
+  --cs-input-hover-bg-color: #e5e6ec;
+  --cs-popper-bg-color: #ffffff;
+  --cs-table-header-bg-color: #f2f3f5;
+  --cs-table-bg-color: #fbfcfd;
+  --cs-table-row-hover-bg-color: #f2f3f5;
+  --cs-table-striped-bg-color: #f2f4f8;
+  --cs-select-hover-bg-color: #f2f3f5;
+  --cs-checkbox-disabled-input-fill: #f3f4f5;
+}
+
+/* ===================== 暗色布局色 ===================== */
+html.dark {
+  --bg-base: #1a1b1d;
+  --bg-surface: #222427;
+  --bg-surface-hover: #232628;
+
+  --text-heading: #f8fafc;
+  --text-body: #c7c9d1;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #0f172a;
+
+  --border-light: #2b303b;
+  --border-base: #3e4656;
+  --border-hover: #525c6e;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 2px 4px -2px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+
+  --cs-input-bg-color: #2d3138;
+  --cs-input-hover-bg-color: #32373d;
+  --cs-popper-bg-color: #23262a;
+  --cs-table-header-bg-color: #2d3138;
+  --cs-table-bg-color: #1f2123;
+  --cs-table-row-hover-bg-color: #2b2f36;
+  --cs-table-striped-bg-color: #282c33;
+  --cs-select-hover-bg-color: #2b2f36;
+  --cs-button-bg-color: #2d3138 ;
+  --cs-checkbox-disabled-input-fill: #2c313d;
+
+  --el-color-info: #52565d !important;
+  --el-bg-color-overlay: #23262a !important;
+  --el-box-shadow-light:0px 0px 12px rgb(24 22 22 / 70%);
+}

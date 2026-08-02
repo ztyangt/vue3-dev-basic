@@ -1,23 +1,12 @@
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
   $colors: (
-    'primary': (
-      'base': #4f47e6,
-    ),
-    'success': (
-      'base': #02b52a,
-    ),
-    'warning': (
-      'base': #ff7d00,
-    ),
-    'danger': (
-      'base': #f53f3f,
-    ),
-    'error': (
-      'base': #f53f3f,
-    ),
-    'info': (
-      'base': #909399,
-    ),
+    // 默认色系: 碧蓝 Blue（通过 data-scheme 属性切换更多主题）
+    'primary': ('base': #165dff),
+    'success': ('base': #02b52a),
+    'warning': ('base': #ff7d00),
+    'danger': ('base': #f53f3f),
+    'error': ('base': #f53f3f),
+    'info': ('base': #52565d),
   ),
   $border-radius: (
     'base': 2px,
@@ -27,5 +16,9 @@
     'blank': #e9edf0,
     'dark': #e0e5e9,
     'light': #ffffff,
+  ),
+  $card: (
+    'bg-color': #ffffff,
+    'border-color': #f1f5f9,
   )
 );

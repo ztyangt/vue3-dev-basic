@@ -1,20 +1,10 @@
+/*
+ * Element Plus 编译期变量注入入口
+ * 说明：此文件随 vite.config.ts 的 scss.additionalData 注入到每一个 SCSS 入口
+ *       （含 Element Plus 各组件的 .scss）。它仅负责把项目的主题色/圆角/填充色等
+ *       SCSS 变量前向覆盖（@forward ... with）到 EP 的 common/var.scss 与 dark/var.scss，
+ *       确保 EP 组件按项目主题编译。本文件不应输出任何选择器规则——
+ *       选择器覆盖统一放到 ./overrides.scss，由 main.ts 全局加载一次，避免在每个 chunk 重复。
+ */
 @use './common.scss' as *;
 @use './dark.scss' as *;
-@use './var.scss' as *;
-
-.el-input__wrapper {
-  box-shadow: none;
-
-  &:hover {
-    box-shadow: none;
-    background-color: var(--el-fill-color-dark);
-  }
-
-  &.is-focus {
-    border: 1px solid var(--primary) inset;
-    background-color: var(--el-fill-color-light);
-    &:hover {
-      box-shadow: 0 0 0 1px var(--el-input-focus-border-color) inset;
-    }
-  }
-}
