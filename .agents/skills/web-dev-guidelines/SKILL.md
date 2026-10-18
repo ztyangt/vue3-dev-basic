@@ -1,12 +1,12 @@
 ---
 name: web-dev-guidelines
-version: 1.2.0
-description: Go Seed Web project-specific frontend guidelines. This skill should be used when writing, reviewing, or refactoring code in the go-seed-web project to ensure consistent layout, component, and styling conventions.
+version: 1.3.0
+description: 本仓库（Vue 3 后台管理项目）的强制开发规范，MUST 使用。任何代码新增、修改、重构、Review、界面设计、UI 美化、页面布局、组件调整、接口对接、样式编写之前，都必须先加载并严格遵守本技能，未遵循视为任务未完成。Triggers on any code change, Vue component, page, view, style, layout, API, type, store, router change in this repo.
 ---
 
 # Web 开发规范 (Development Guidelines)
 
-这是一份针对 `web` 项目的开发规范 Skill。**🚨 触发条件：每次界面设计、UI 美化、页面布局、组件视觉调整、新增或改写视图/页面时，都必须加载并严格遵守本技能。** 在进行任何前端代码生成、重构、组件编写或修改时，必须严格遵守以下约定，以保持项目风格的高度一致性。
+这是一份针对本仓库的**强制开发规范**。**🚨 强制执行：任何前端代码生成、修改、重构、Review、界面设计、UI 美化、页面布局、组件视觉调整、新增或改写视图/页面、接口对接时，都必须先加载并严格遵守本技能，没有例外；未遵循本规范视为任务未完成。** 以下约定用于保持项目风格的高度一致性。
 
 ## 1. 技术栈与基础规范
 
@@ -189,69 +189,30 @@ src/
 
 ### 关键基础设施
 
-- **`src/utils/request/`**：自动注入 `Authorization`（来自 cookie），并提供 `$get` / `$post` / `$put` / `$patch` / `$delete`，统一返回 `{ code, data, msg }`。**业务代码不写 try/catch**（错误由 `src/emitter` 全局处理，详见 §接口调用规范）。
+- **`src/utils/request/`**：自动注入 `Authorization`（来自 cookie），并提供 `$get` / `$post` / `$put` / `$patch` / `$delete`，统一返回 `{ code, data, msg }`。**业务代码不写 try/catch**（错误由 `src/emitter` 全局处理，详见本节「关键基础设施」）。
 - **`src/emitter/`**：自动监听 API 错误并 `ElMessage` 提示，业务侧不再重复弹错。
 - **`src/hooks/use-pagination/index.ts`**：返回 `{ pageSize: ref(20), total: ref(0), currentPage: ref(1) }`，列表页直接解构使用。
 - **`unplugin/auto-imports.d.ts` / `unplugin/components.d.ts`**：自动导入产物，勿手改；新增 vue/pinia/vue-router API 或 Element Plus 组件会被 `unplugin-auto-import` / `unplugin-vue-components` 自动识别。
 - **Vite 代理**：`vite.config.ts` 已配 `/api/v1 -> http://127.0.0.1:8080`，本地开发直连后端，无需跨域配置。
 
-## 9. 接口功能对接联调流程（标准 9 步）
+## 9. 功能开发与联调流程（标准 7 步，强制执行）
 
-以「用户管理 + 回收站」为例，从接口发现到上线联调的推荐流程：
+以「用户管理 + 回收站」为例，从需求确认到上线联调的固定流程：
 
-### Step 1 — 加载本 Skill
+### Step 1 — 加载本 Skill（强制）
 
-开始任何对接/页面工作前，加载 `go-seed-web-guidelines` Skill（本文件），确保按 §2/§2.5/§3 的样式与拆分约定执行。
+开始任何开发/对接/页面工作前，必须先加载 `web-dev-guidelines` Skill（本文件），确保按 §2/§2.5/§3 的样式与拆分约定执行。
 
-### Step 2 — 用 `go-seed-swagger` MCP 检索接口
+### Step 2 — 确认接口契约
 
-首选工具：`swagger_search`（关键字模糊匹配路径与 schema），快速锁定模块全貌：
+接口字段、枚举、必填项与错误结构以实际后端接口（接口文档/后端代码/联调结果）为准，**严禁臆造字段或枚举值**：
 
-```
-swagger_search  keyword=user      →  命中 /user* 8 个接口 + user.* 11 个 schema
-```
-
-若不确定有哪些端点，用 `swagger_list_paths` / `swagger_list_schemas` 全量罗列。
-
-### Step 3 — 取接口详细定义
-
-对每个接口用 `swagger_get_path` 按 method 取 `parameters` / `requestBody` / `responses`：
-
-```
-swagger_get_path  path=/user  method=POST
-swagger_get_path  path=/user/list  method=POST
-...
-```
-
-- 注意 query 形参（如 `DELETE /user?id=1`）与 body 形参（`POST /user`）的差异，前者在前端 API 方法里用 `http.$delete(url, { id })` 传参；
-- 响应里 `data` 常是 `response.Result` + 业务 `allOf` 合并结构，直接展开看 `data` 字段；
+- 先确认请求方式、路径、query 形参（如 `DELETE /user?id=1`）与 body 形参（`POST /user`）的差异，query 形参在前端 API 方法里用 `http.$delete(url, { id })` 传参；
+- 响应里 `data` 常是 `Result` + 业务字段合并结构，按实际返回展开；
+- 枚举值必须逐一确认：如 `UserGender 1=男 2=女 3=保密`、`UserStatus 1=正常 2=封禁`；
 - 每个请求都带 `Authorization` header，由 `utils/request` 自动注入，前端不用写。
 
-### Step 4 — 取 schema 定义
-
-对 `requestBody`/`responses` 里的 `$ref` schema 逐一调 `swagger_get_schema`，递归展开字段：
-
-```
-swagger_get_schema  name=user.CreateUserRequest
-swagger_get_schema  name=user.UserResponse
-swagger_get_schema  name=comm.UserStatus   # 枚举 1/2
-```
-
-枚举要记下：`UserGender 1=男 2=女 3=保密`、`UserStatus 1=正常 2=封禁` 等。
-
-### Step 5 — 后端若有改动，强制刷新缓存
-
-后端新加/改动接口时，每个 MCP 调用传 `refresh=true` 重新拉 doc.json：
-
-```
-swagger_list_paths  refresh=true
-swagger_get_path    path=/user/restore  method=PATCH  refresh=true
-swagger_get_schema  name=user.QueryUsersRequest      refresh=true
-```
-
-**「回收站」就靠这步发现**——`/user/restore` 与 `QueryUsersRequest.only_deleted` 是补加的；不刷会漏。
-
-### Step 6 — 用 `codegraph_explore` 探索同类现有模块
+### Step 3 — 用 `codegraph_explore` 探索同类现有模块
 
 对接前先看项目里同形态的成熟模块怎么写，**不要从零设计**：
 
@@ -261,7 +222,7 @@ codegraph_explore  query="role view page router http request util RoleApi list p
 
 一次调用取回 `src/apis/role.ts` / `src/types/role.ts` / `src/views/admin/user-permissions/roles/index.vue` + 各子组件的 verbatim 源码。新模块镜像它的：Api 类风格、namespace 内类名（`Datum` / `CreateParams` / `UpdateParams` / `QueryParams`）、index.vue 编排、组件拆分粒度。
 
-### Step 7 — 落类型 `src/types/<module>.ts`
+### Step 4 — 落类型 `src/types/<module>.ts`
 
 按 §8 命名约定，**先类型后 API**：
 
@@ -270,7 +231,7 @@ codegraph_explore  query="role view page router http request util RoleApi list p
 - 枚举值用 TS `enum`，并附 `GenderLabel`/`StatusLabel` 映射供 `<el-tag>` 用；
 - 兼容字段不删（`UserInfo` / `UserLoginInfo` / `JwtData` 留给 auth/store 用）。
 
-### Step 8 — 落 API `src/apis/<module>.ts`
+### Step 5 — 落 API `src/apis/<module>.ts`
 
 照搬 `src/apis/role.ts` 的骨架：
 
@@ -312,7 +273,7 @@ export const userApi = new UserApi()
 - query 形参的删除/恢复接 `http.$delete(url, { id })`；
 - 不要包 try/catch（错误由全局 emitter 处理），返回 `{ code, data }` 让业务判断 `code === 200`。
 
-### Step 9 — 落页面与组件 `src/views/admin/<group>/<page>/`
+### Step 6 — 落页面与组件 `src/views/admin/<group>/<page>/`
 
 按 §3 / §8 拆分，落地顺序：
 
@@ -325,13 +286,13 @@ export const userApi = new UserApi()
 7. `index.vue` 编排：`fetchData` 拉列表、`handleRemove/handleRestore` 等处理函数、各弹窗 visible/submitting 状态，删除类用 `ElMessageBox.confirm(...).then(async ...).catch(() => {})` 吞取消分支；
 8. `src/router/routes/admin.ts` 注册路由（`name: 'admin-<group>-<page>'`，`meta.title/icon` 必填）。
 
-### Step 10 — 验证
+### Step 7 — 验证
 
 1. `npm run type-check`：新增/改动文件需 0 报错（既有无关报错可忽略，必要时用 `git stash --include-untracked` 对照基线）；
 2. `npx prettier --write src/apis src/types 'src/views/admin/**/*'`：统一格式；
 3. `npm run dev` 启动 Vite（`http://localhost:8000`），通过 `/api/v1` 代理连本地后端联调；
 4. 走一遍完整业务闭环：列表 → 过滤 → 新建 → 编辑 → 删除（软删） → 回收站 → 恢复 / 彻底删除；
-5. 弹窗表单校验、`code !== 200` 静默 return、成功 `ElMessage.success` 提示是否符合 §接口调用规范。
+5. 弹窗表单校验、`code !== 200` 静默 return、成功 `ElMessage.success` 提示是否符合 §8 关键基础设施的接口约定。
 
 ### 回收站类功能的标准实现模式
 
@@ -350,4 +311,4 @@ export const userApi = new UserApi()
 
 ## 总结
 
-**你的目标是写出“看起来像原本就属于这个项目的代码”。** 在增加新视图或组件时，绝不随意写死内联样式或滥写 scoped CSS，而是大量地组合 `base.scss` 提供的原子类；界面设计与美化时优先使用 Element Plus 组件、滚动统一 `el-scrollbar`、全局小圆角、大气留白美观。保持代码极致的简洁、规范与高复用性。
+**本规范为强制约束，不是建议。** 你的目标是写出“看起来像原本就属于这个项目的代码”。在增加新视图或组件时，绝不随意写死内联样式或滥写 scoped CSS，而是大量地组合 `base.scss` 提供的原子类；界面设计与美化时优先使用 Element Plus 组件、滚动统一 `el-scrollbar`、全局小圆角、大气留白美观。保持代码极致的简洁、规范与高复用性。**任何偏离本规范的实现都必须先与用户确认，否则视为未完成。**
